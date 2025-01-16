@@ -3,12 +3,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Alert from "@mui/material/Alert";
-import "../app/styles.css";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import "../styles.css";
 import Checkbox from "@mui/material/Checkbox";
-import { CircularProgress, dividerClasses } from "@mui/material";
-import Link from "next/link";
+import { Alert } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDK1F0-WuNBPw1w86CBl44x3YpN2lXamtg",
@@ -22,9 +21,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const SignIn: React.FC = () => {
+const register: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,6 +35,7 @@ const SignIn: React.FC = () => {
       import("firebase/analytics").then(() => getAnalytics(app));
     }
   }, []);
+
   const onSubmitForm = async (event: React.FormEvent) => {
     setLoading(true);
     event.preventDefault();
@@ -42,7 +43,7 @@ const SignIn: React.FC = () => {
     const trimPassword = password.trim();
     try {
       const auth = getAuth();
-      const user = await signInWithEmailAndPassword(
+      const user = await createUserWithEmailAndPassword(
         auth,
         trimEmail,
         trimPassword
@@ -65,12 +66,11 @@ const SignIn: React.FC = () => {
     <div className="body">
       <div className="wrapper">
         <form action="" onSubmit={onSubmitForm}>
-          <h1>Login</h1>
-
+          <h1>Register</h1>
           {/* Success Alert */}
           {success && (
             <Alert severity="success" style={{ marginBottom: "10px" }}>
-              Login successful! Redirecting to home page...
+              Registration successful! Redirecting to home page...
             </Alert>
           )}
 
@@ -80,7 +80,17 @@ const SignIn: React.FC = () => {
               {error}
             </Alert>
           )}
-
+          <div className="input-box">
+            <input
+              type="text"
+              placeholder="Username"
+              required
+              value={username}
+              autoFocus
+              onChange={(text) => setUsername(text.target.value)}
+            />
+            <i className="bx bxs-user"></i>
+          </div>
           <div className="input-box">
             <input
               value={email}
@@ -95,7 +105,7 @@ const SignIn: React.FC = () => {
             <input
               value={password}
               type="password"
-              placeholder="Password"
+              placeholder="password"
               required
               onChange={(text) => setPassword(text.target.value)}
             />
@@ -114,15 +124,18 @@ const SignIn: React.FC = () => {
               />{" "}
               <label>Remember me </label>
             </div>
-            <Link href="/forgot">Forgot Password?</Link>
           </div>
           <button type="submit" className="button">
-            {loading ? <CircularProgress color="inherit" size={20} /> : "Sign In"}
+            {loading ? (
+              <CircularProgress color="inherit" size={20} />
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
         <div className="register-link">
           <p>
-            Don't have an account? <a href="/register">Register</a>
+            Have an Account? <a href="/">Login</a>
           </p>
         </div>
       </div>
@@ -130,4 +143,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default register;

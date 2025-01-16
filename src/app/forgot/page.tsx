@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import Alert from "@mui/material/Alert";
-import "../app/styles.css";
-import Checkbox from "@mui/material/Checkbox";
-import { CircularProgress, dividerClasses } from "@mui/material";
-import Link from "next/link";
+import '../styles.css';
+import { CircularProgress } from "@mui/material";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDK1F0-WuNBPw1w86CBl44x3YpN2lXamtg",
@@ -24,11 +22,9 @@ const app = initializeApp(firebaseConfig);
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -39,22 +35,15 @@ const SignIn: React.FC = () => {
     setLoading(true);
     event.preventDefault();
     const trimEmail = email.trim();
-    const trimPassword = password.trim();
     try {
       const auth = getAuth();
-      const user = await signInWithEmailAndPassword(
+      const user = await sendPasswordResetEmail(
         auth,
         trimEmail,
-        trimPassword
       );
-      if (user) {
-        setSuccess(true);
-        setError(null);
-        setEmail("");
-        setPassword("");
-        router.push("/home");
+      return {
+        user
       }
-      setLoading(false);
     } catch (error: any) {
       setSuccess(false);
       setError(error.message);
@@ -65,7 +54,7 @@ const SignIn: React.FC = () => {
     <div className="body">
       <div className="wrapper">
         <form action="" onSubmit={onSubmitForm}>
-          <h1>Login</h1>
+          <h1>Reset Password</h1>
 
           {/* Success Alert */}
           {success && (
@@ -91,33 +80,10 @@ const SignIn: React.FC = () => {
             />
             <i className="bx bxs-lock-alt"></i>
           </div>
-          <div className="input-box">
-            <input
-              value={password}
-              type="password"
-              placeholder="Password"
-              required
-              onChange={(text) => setPassword(text.target.value)}
-            />
-            <i className="bx bxs-lock-alt"></i>
-          </div>
           <div className="remember-forgot">
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Checkbox
-                defaultChecked
-                sx={{
-                  color: "white",
-                  "&.Mui-checked": {
-                    color: "white",
-                  },
-                }}
-              />{" "}
-              <label>Remember me </label>
-            </div>
-            <Link href="/forgot">Forgot Password?</Link>
           </div>
           <button type="submit" className="button">
-            {loading ? <CircularProgress color="inherit" size={20} /> : "Sign In"}
+            {loading ? <CircularProgress color="inherit" size={20} /> : "Reset Password"}
           </button>
         </form>
         <div className="register-link">
