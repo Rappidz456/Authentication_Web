@@ -1,116 +1,37 @@
-.bodyHome {
-  background-color: #f4f5ff;
-  height: 100vh; /* Ensure it covers the full viewport height */
-  margin: 0;
-  padding: 0;
-}
-
-.form-container {
+body {
+  background-image: url("./bottomImg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.form-container-inside {
-  margin-top: 20px;
-  width: 650px;
-  background-color: #ffffff;
-  height: 550px;
-  border-radius: 10px;
-  border: 2px solid rgb(255, 255, 255, 0.3);
-  box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+.logo{
+  width: 120px;
+  height: 100px;
 }
 
-.form-inside {
-  flex-direction: row;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-}
-
-.heading-container {
+.contents {
+  margin-top: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 30px;
-  background-color: white;
-  border: 1px solid gainsboro;
-}
-
-.h1 {
-  color: #9b92f2;
-}
-
-.heading-content {
-  color: black;
-  font-weight: 550;
-  font-size: 22px;
-  margin-left: 10px;
-}
-
-.form-input {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.form-flex {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 600px;
+  flex-direction: column;
   gap: 20px;
 }
 
-.name {
-  font-size: 14px;
-  color: #a496a1;
-  margin-left: 5px;
-  font-weight: lighter;
-  font-family: sans-serif;
+.heading {
+  font-size: 25px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 800;
+  color: #F5DCB9;
 }
 
-.input-box {
-  width: 300px;
-  height: 50px;
-  border: 1px solid gainsboro;
-  padding-left: 30px;
-  border-radius: 10px;
-  margin-top: 5px;
-  color: black;
-}
-
-.input-box:-webkit-autofill {
-  -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
-  -webkit-text-fill-color: black;
-}
-
-.input-box:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 50px white inset;
-  -webkit-text-fill-color: black;
-}
-
-.input-box:hover{
-    border: 1px solid #9b92f2;
-    transition: all 0.3s ease;
-}
-
-.form-button{
-    width: 600px;
-    display: flex;
-    margin-top: 40px;
-}
-
-.button{
-    width: 200px;
-    height: 45px;
-    border: none;
-    outline: none;
-    background: #9b92f2;
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 10px;
+.subheading{
+  font-size: 100px;
+  font-weight: bold;
+  font-family: "Work Sans", sans-serif;
+  color: #F5DCB9;
 }
